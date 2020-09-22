@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name" translatable="false">GupYou</string>
+    <string name="home_title">Pantalla Principal</string>
+    <string name="title_activity_login">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>
