@@ -2,4 +2,7 @@
 <resources>
     <string name="app_name">GupYou</string>
     <string name="home_title">Primeira Pantalla</string>
+    <string name="title_activity_login">FullscreenActivity</string>
+    <string name="dummy_button">Rexistrate</string>
+    <string name="dummy_content">GupYou</string>
 </resources>
