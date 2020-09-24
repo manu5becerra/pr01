@@ -55,15 +55,23 @@ public class Conexion {
 	}
 	
 	
-	public void select (String TABLA) {
+	public void select(String TABLA) {
 		
 	}
 	
 	
-	public void 
-	
-}
+	public void update(String TABLA, String[] cola, String[] values) {
+		
+	}
 
+	public boolean isConnected() throws SQLException {
+		if(connection == null) {
+			return false;
+		}
+		return !connection.isClosed();
+	
+	}
+}
 
 
 
