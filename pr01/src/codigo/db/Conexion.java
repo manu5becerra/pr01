@@ -1,4 +1,4 @@
-package codigo.db;
+ackage codigo.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,14 +7,13 @@ import java.sql.Statement;
 
 public class Conexion {
 	
-	private static Conexion instance;
+	private static Conexion instance; 
 
 	private Conexion() {
 		try {
 			connection = DriverManager.getConnection("jdbc:sqlite:sample.db");
 		} catch (SQLException e) {
-			
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 	}
 
@@ -27,55 +26,63 @@ public class Conexion {
 	
 	private Connection connection = null;
 	
-	public Statement getState() throws SQLException {
-		 Statement statement = connection.createStatement();
-	     statement.setQueryTimeout(30);  // set timeout to 30 sec.
-	     
-	     return statement;
+	private Statement getState() throws SQLException {
+		Statement statement = connection.createStatement();
+        statement.setQueryTimeout(30);  // set timeout to 30 sec.
+        
+        return statement;
+	}
 	
-		}
-		
 	
 	public void close() {
-		 try
-	      {
-	        if(connection != null)
-	          connection.close();
-	      }
-	      catch(SQLException e)
-	      {
-	        // connection close failed.
-	        System.err.println(e.getMessage());
-	      }
+		 try {
+           if(connection != null)
+             connection.close();
+         } catch(SQLException e)  {
+           // connection close failed.
+           System.err.println(e.getMessage());
+         }
+	}
+	
+
+	private String getStringArray(String[] values) {
+		String res = "";
+		for (String value : values) {
+			res = res + ",'" +value+"'";
+		}
+		res = res.substring(1);
+		return res;
 	}
 	
 	
-	public void insertar(String TABLA, String[] values) {
+	public void insertar(String TABLA, String[] values) throws SQLException{
+		String tail = this.getStringArray(values);
+		String query = "insert into "+TABLA+" values("+tail+")";
 		
+		Statement state = this.getState();
+		state.executeUpdate(query);
 	}
 	
-	
+
 	public void select(String TABLA) {
 		
 	}
 	
-	
-	public void update(String TABLA, String[] cola, String[] values) {
+	public void update(String TABLA, String[] cols, String[] values) {
 		
+	}
+	
+	public void delete(String TABLA, Integer ID) {
+	
 	}
 
 	public boolean isConnected() throws SQLException {
-		if(connection == null) {
+		if (connection == null) {
 			return false;
-		}
+		} 
 		return !connection.isClosed();
-	
 	}
+	
+	
+	
 }
-
-
-
-
-
-
-
