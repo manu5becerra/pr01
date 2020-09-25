@@ -1,4 +1,4 @@
-ackage codigo.db;
+package codigo.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -54,8 +54,14 @@ public class Conexion {
 		return res;
 	}
 	
-	
-	public void insertar(String TABLA, String[] values) throws SQLException{
+	/**
+	 * Esta funcion inserta datos en una tabla
+	 * 
+	 * @param TABLA
+	 * @param values
+	 * @throws SQLException
+	 */
+	public void insert(String TABLA, String[] values) throws SQLException{
 		String tail = this.getStringArray(values);
 		String query = "insert into "+TABLA+" values("+tail+")";
 		
@@ -72,8 +78,13 @@ public class Conexion {
 		
 	}
 	
-	public void delete(String TABLA, Integer ID) {
+	public void delete(String TABLA, Integer ID) throws SQLException {
 	
+		
+		String query = "Delete from " + TABLA + "WHERE Id = " + (ID) + ";";
+		
+		Statement state = this.getState();
+		state.executeUpdate(query);
 	}
 
 	public boolean isConnected() throws SQLException {

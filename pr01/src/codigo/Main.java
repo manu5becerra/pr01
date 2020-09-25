@@ -15,8 +15,9 @@ public class Principal {
 	 
 		Conexion ctx = Conexion.getInstance();
 		
-		String[] lista = ["hola", "don", "pepito"];
-		ctx.insertar("person", lista);
+		String[] lista = {"hola", "don", "pepito"};
+		
+		ctx.insert("person", lista);
 		
 		
 		ctx.close();
@@ -28,6 +29,7 @@ public class Principal {
           // create a database connection
           
           
+          ctx.delete("person", 1);
 
           statement.executeUpdate("drop table if exists person");
           
