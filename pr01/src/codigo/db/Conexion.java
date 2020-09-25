@@ -54,6 +54,20 @@ public class Conexion {
 		return res;
 	}
 	
+	
+	private String getStringArray(String[] cols, String[] values) {
+		//name = 'Buri'
+		String res = "";
+		for (int i =0; i < values.length; i++) {
+			String value = values[i];
+			String col = cols[i];
+			res = res + col + "=" + value +"'";
+		}
+		res = res.substring(1);
+		return res;
+		
+	}
+	
 	/**
 	 * Esta funcion inserta datos en una tabla
 	 * 
@@ -65,8 +79,8 @@ public class Conexion {
 		String tail = this.getStringArray(values);
 		String query = "insert into "+TABLA+" values("+tail+")";
 		
-		Statement state = this.getState();
-		state.executeUpdate(query);
+		
+		instance.execute(query);
 	}
 	
 
@@ -74,17 +88,24 @@ public class Conexion {
 		
 	}
 	
-	public void update(String TABLA, String[] cols, String[] values) {
+	public void update(String TABLA, Integer ID, String[] cols, String[] values) throws SQLException {
+		//UPDATE TABLE XXXX SET YYY-ZZZZ WHERE iD = QQQQQ
+		String tail = this.getStringArray(cols, values);
+		String query = "UPDATE " + TABLA + " SET " +tail + " WHERE 'id' = "+ ID;
+		
+		
+		instance.execute(query);
+		
 		
 	}
 	
+
 	public void delete(String TABLA, Integer ID) throws SQLException {
 	
-		
 		String query = "Delete from " + TABLA + "WHERE Id = " + (ID) + ";";
 		
-		Statement state = this.getState();
-		state.executeUpdate(query);
+		instance.execute(query);
+		
 	}
 
 	public boolean isConnected() throws SQLException {
@@ -94,6 +115,11 @@ public class Conexion {
 		return !connection.isClosed();
 	}
 	
-	
+	private void execute(String query) throws SQLException {
+
+		Statement state = this.getState();
+		state.executeUpdate(query);
+		
+	}
 	
 }

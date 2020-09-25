@@ -30,6 +30,7 @@ public class Principal {
           
           
           ctx.delete("person", 1);
+          ctx.ins
 
           statement.executeUpdate("drop table if exists person");
           
