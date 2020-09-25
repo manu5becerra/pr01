@@ -2,6 +2,7 @@ package codigo.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -79,12 +80,22 @@ public class Conexion {
 		String tail = this.getStringArray(values);
 		String query = "insert into "+TABLA+" values("+tail+")";
 		
+		Statement state = this.getState();
+		state.executeUpdate(query);
 		
-		instance.execute(query);
+		//instance.execute(query);
 	}
 	
 
-	public void select(String TABLA) {
+	public ResultSet select(String TABLA, String[] cols, String[] values) throws SQLException {
+		
+		String tail = this.getStringArray(cols, values);
+		tail = tail.replaceAll(",", "AND");
+		Statement state = this.getState();
+		ResultSet rs = state.executeQuery("select * from "+ TABLA +" WHERE " + tail);
+		
+		return rs;
+
 		
 	}
 	
@@ -93,18 +104,24 @@ public class Conexion {
 		String tail = this.getStringArray(cols, values);
 		String query = "UPDATE " + TABLA + " SET " +tail + " WHERE 'id' = "+ ID;
 		
+		Statement state = this.getState();
+		state.executeUpdate(query);
 		
-		instance.execute(query);
+		//instance.execute(query);
 		
 		
 	}
 	
 
+
 	public void delete(String TABLA, Integer ID) throws SQLException {
 	
 		String query = "Delete from " + TABLA + "WHERE Id = " + (ID) + ";";
 		
-		instance.execute(query);
+		Statement state = this.getState();
+		state.executeUpdate(query);
+		
+		//instance.execute(query);
 		
 	}
 
@@ -120,6 +137,6 @@ public class Conexion {
 		Statement state = this.getState();
 		state.executeUpdate(query);
 		
-	}
+	}	
 	
 }
